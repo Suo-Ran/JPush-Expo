@@ -41,7 +41,7 @@ export const withAndroidAppBuildGradle: ConfigPlugin = (config) =>
         src,
         newSrc: getManifestPlaceholders(),
         tag: 'jpush-manifest-placeholders',
-        anchor: /versionName\s+["'][\d.]+["']\n/,  // 匹配 versionName "1.0"
+        anchor: /versionName\s+["'][\d.]+["']/,  // 匹配 versionName "1.0"
         offset: 1,  // 在 versionName 的下一行插入
         comment: '//',
       });
@@ -55,7 +55,7 @@ export const withAndroidAppBuildGradle: ConfigPlugin = (config) =>
         src,
         newSrc: getJPushDependencies(),
         tag: 'jpush-dependencies',
-        anchor: /dependencies \{\n/,
+        anchor: /dependencies \{/,
         offset: 1,  // 在 dependencies { 的下一行插入
         comment: '//',
       });

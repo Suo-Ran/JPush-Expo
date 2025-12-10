@@ -45,6 +45,8 @@ export const withIosBridgingHeader: ConfigPlugin = (config) =>
       let bridgingContent = fs.readFileSync(bridgingHeaderFile, 'utf8');
 
       // 添加 JPush 相关导入（支持 jpush-react-native@3.1.9）
+      // 注意：不需要导入 JPUSHService.h，Swift 可以直接 import
+      // 只需要导入 React Native 桥接模块
       const jpushImports = `
 // JPush 相关导入
 #import <JPUSHService.h>

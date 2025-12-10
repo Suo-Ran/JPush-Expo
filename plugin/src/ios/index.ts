@@ -7,7 +7,6 @@ import { ConfigPlugin } from 'expo/config-plugins';
 import { withIosInfoPlist } from './infoPlist';
 import { withIosAppDelegate } from './appDelegate';
 import { withIosBridgingHeader } from './bridgingHeader';
-import { withIosPodfile } from './podfile';
 
 /**
  * 应用所有 iOS 配置
@@ -18,7 +17,6 @@ export const withIOSConfig: ConfigPlugin = (config) => {
   config = withIosInfoPlist(config);
   config = withIosAppDelegate(config);
   config = withIosBridgingHeader(config);
-  config = withIosPodfile(config);
 
   return config;
 };

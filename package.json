@@ -1,6 +1,6 @@
 {
   "name": "mx-jpush-expo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "expo 集成 jpush 一体化方案",
   "main": "app.plugin.js",
   "types": "plugin/build/index.d.ts",

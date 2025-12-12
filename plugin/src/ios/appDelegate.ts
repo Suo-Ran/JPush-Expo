@@ -109,7 +109,7 @@ const jpushInit = `
     JPUSHService.setup(withOption: launchOptions,
                        appKey: "${getAppKey()}",
                        channel: "${getChannel()}",
-                       apsForProduction: false)
+                       apsForProduction: ${getApsForProduction()})
 
     // 监听自定义消息
     NotificationCenter.default.addObserver(

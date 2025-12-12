@@ -34,6 +34,8 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
 
 ### 2.集成
 在`app.config.js`的`plugin`中注册插件
+
+#### 基础配置
 ```js
 {
   "expo": {
@@ -44,7 +46,11 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
         "mx-jpush-expo",
         {
           "appKey": "你的极光推送AppKey",
-          "channel": "你的极光推送Channel"
+          "channel": "你的极光推送Channel",
+          // iOS 推送环境配置（可选，默认为 false）
+          // false: 开发环境，用于开发和测试（默认）
+          // true: 生产环境，用于 App Store 发布的应用
+          "apsForProduction": false
         }
       ]
     ],
@@ -52,14 +58,74 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
       "supportsTablet": true,
       "bundleIdentifier": "com.your.app",
       "infoPlist": {
-        // 推送相关权限说明（可选，插件会自动添加默认值）
-        "NSUserTrackingUsageDescription": "需要相机权限用于视频通话",
-        "NSMicrophoneUsageDescription": "需要麦克风权限用于语音通话"
+        // ...
       }
     }
   }
 }
 ```
+
+**配置参数说明**：
+- `appKey`（必填）：在极光推送控制台创建应用后获得的 AppKey
+- `channel`（必填）：渠道标识，用于统计不同渠道的推送效果，可自定义（如 "developer-default"、"App Store" 等）
+- `apsForProduction`（可选，默认 `false`）：iOS 推送环境配置
+  - `false`（默认）：开发环境，用于开发调试，需要使用开发证书
+  - `true`：生产环境，用于通过 App Store 或 TestFlight 分发的正式版本
+
+#### 厂商通道配置（可选）
+如果需要集成厂商通道（小米、OPPO、VIVO、魅族、荣耀、蔚来），可以添加 `vendorChannels` 配置：
+
+```js
+{
+  "expo": {
+    "plugins": [
+      [
+        "mx-jpush-expo",
+        {
+          "appKey": "你的极光推送AppKey",
+          "channel": "你的极光推送Channel",
+          "vendorChannels": {
+            // 小米推送（可选）
+            "xiaomi": {
+              "appId": "MI-小米的APPID",
+              "appKey": "MI-小米的APPKEY"
+            },
+            // OPPO 推送（可选）
+            "oppo": {
+              "appKey": "OP-oppo的APPKEY",
+              "appId": "OP-oppo的APPID",
+              "appSecret": "OP-oppo的APPSECRET"
+            },
+            // VIVO 推送（可选）
+            "vivo": {
+              "appKey": "vivo的APPKEY",
+              "appId": "vivo的APPID"
+            },
+            // 魅族推送（可选）
+            "meizu": {
+              "appKey": "MZ-魅族的APPKEY",
+              "appId": "MZ-魅族的APPID"
+            },
+            // 荣耀推送（可选）
+            "honor": {
+              "appId": "Honor的APP ID"
+            },
+            // 蔚来推送（可选）
+            "nio": {
+              "appId": "蔚来的APP ID"
+            }
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
+**注意**：
+- 厂商通道配置是可选的，只需配置你实际使用的厂商
+- 如果不配置某个厂商，对应的 manifestPlaceholders 不会被添加
+- 所有厂商通道的 AppKey/AppId 需要在对应厂商的推送平台申请
 
 ## 3.`prebuild`
 ```bash
@@ -168,7 +234,6 @@ npm run clean
 
 感谢以下掘金文章作者的技术分享：
 - [@折七](https://juejin.cn/user/7423235127716659239) - JPush 集成 Expo 基础方案
-- [@折七](https://juejin.cn/user/7554288083597885467) - Expo SDK 53+ iOS Swift 实现方案
 
 ## License
 

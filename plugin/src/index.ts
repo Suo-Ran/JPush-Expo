@@ -39,7 +39,18 @@ import { withAndroidConfig } from './android';
  *       {
  *         "appKey": "your-jpush-appkey",
  *         "channel": "your-channel",
- *         "apsForProduction": false
+ *         "apsForProduction": false,
+ *         "vendorChannels": {
+ *           "xiaomi": {
+ *             "appId": "your-xiaomi-appid",
+ *             "appKey": "your-xiaomi-appkey"
+ *           },
+ *           "oppo": {
+ *             "appKey": "your-oppo-appkey",
+ *             "appId": "your-oppo-appid",
+ *             "appSecret": "your-oppo-appsecret"
+ *           }
+ *         }
  *       }
  *     ]
  *   ]
@@ -52,7 +63,7 @@ const withJPush: ConfigPlugin<JPushPluginProps> = (config, props) => {
     validateProps(props);
 
     // 设置全局配置
-    setConfig(props.appKey, props.channel, props.apsForProduction);
+    setConfig(props.appKey, props.channel, props.apsForProduction, props.vendorChannels);
 
     // 应用 iOS 配置
     config = withIOSConfig(config);

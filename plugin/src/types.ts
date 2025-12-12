@@ -3,6 +3,58 @@
  */
 
 /**
+ * 厂商通道配置
+ */
+export interface VendorChannelConfig {
+  /**
+   * 魅族推送配置
+   */
+  meizu?: {
+    appKey: string;
+    appId: string;
+  };
+
+  /**
+   * 小米推送配置
+   */
+  xiaomi?: {
+    appId: string;
+    appKey: string;
+  };
+
+  /**
+   * OPPO 推送配置
+   */
+  oppo?: {
+    appKey: string;
+    appId: string;
+    appSecret: string;
+  };
+
+  /**
+   * VIVO 推送配置
+   */
+  vivo?: {
+    appKey: string;
+    appId: string;
+  };
+
+  /**
+   * 荣耀推送配置
+   */
+  honor?: {
+    appId: string;
+  };
+
+  /**
+   * 蔚来推送配置
+   */
+  nio?: {
+    appId: string;
+  };
+}
+
+/**
  * JPush 插件配置参数
  */
 export interface JPushPluginProps {
@@ -18,9 +70,14 @@ export interface JPushPluginProps {
 
   /**
    * iOS 推送环境（可选）
-   * @default true - 生产环境
+   * @default false - 开发环境
    */
   apsForProduction?: boolean;
+
+  /**
+   * 厂商通道配置（可选）
+   */
+  vendorChannels?: VendorChannelConfig;
 }
 
 /**

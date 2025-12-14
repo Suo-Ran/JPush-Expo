@@ -5,6 +5,7 @@
 import { ConfigPlugin } from 'expo/config-plugins';
 import { withAndroidManifestConfig } from './androidManifest';
 import { withAndroidAppBuildGradle } from './appBuildGradle';
+import { withAndroidProjectBuildGradle } from './projectBuildGradle';
 import { withAndroidSettingsGradle } from './settingsGradle';
 
 /**
@@ -14,6 +15,7 @@ import { withAndroidSettingsGradle } from './settingsGradle';
  */
 export const withAndroidConfig: ConfigPlugin = (config) => {
   config = withAndroidManifestConfig(config);
+  config = withAndroidProjectBuildGradle(config);
   config = withAndroidAppBuildGradle(config);
   config = withAndroidSettingsGradle(config);
 

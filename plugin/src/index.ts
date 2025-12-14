@@ -39,6 +39,7 @@ import { withAndroidConfig } from './android';
  *       {
  *         "appKey": "your-jpush-appkey",
  *         "channel": "your-channel",
+ *         "packageName": "com.your.app",
  *         "apsForProduction": false,
  *         "vendorChannels": {
  *           "xiaomi": {
@@ -63,7 +64,7 @@ const withJPush: ConfigPlugin<JPushPluginProps> = (config, props) => {
     validateProps(props);
 
     // 设置全局配置
-    setConfig(props.appKey, props.channel, props.apsForProduction, props.vendorChannels);
+    setConfig(props.appKey, props.channel, props.packageName, props.apsForProduction, props.vendorChannels);
 
     // 应用 iOS 配置
     config = withIOSConfig(config);

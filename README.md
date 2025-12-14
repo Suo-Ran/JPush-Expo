@@ -47,6 +47,7 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
         {
           "appKey": "你的极光推送AppKey",
           "channel": "你的极光推送Channel",
+          "packageName": "com.your.app",
           // iOS 推送环境配置（可选，默认为 false）
           // false: 开发环境，用于开发和测试（默认）
           // true: 生产环境，用于 App Store 发布的应用
@@ -60,6 +61,9 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
       "infoPlist": {
         // ...
       }
+    },
+    "android": {
+      "package": "com.your.app"
     }
   }
 }
@@ -68,12 +72,13 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
 **配置参数说明**：
 - `appKey`（必填）：在极光推送控制台创建应用后获得的 AppKey
 - `channel`（必填）：渠道标识，用于统计不同渠道的推送效果，可自定义（如 "developer-default"、"App Store" 等）
+- `packageName`（必填）：Android 应用包名，需要与极光推送控制台注册的包名完全一致
 - `apsForProduction`（可选，默认 `false`）：iOS 推送环境配置
   - `false`（默认）：开发环境，用于开发调试，需要使用开发证书
   - `true`：生产环境，用于通过 App Store 或 TestFlight 分发的正式版本
 
 #### 厂商通道配置（可选）
-如果需要集成厂商通道（小米、OPPO、VIVO、魅族、荣耀、蔚来），可以添加 `vendorChannels` 配置：
+如果需要集成厂商通道（华为、FCM、小米、OPPO、VIVO、魅族、荣耀、蔚来），可以添加 `vendorChannels` 配置：
 
 ```js
 {
@@ -84,11 +89,20 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
         {
           "appKey": "你的极光推送AppKey",
           "channel": "你的极光推送Channel",
+          "packageName": "com.your.app",
           "vendorChannels": {
+            // 华为推送（可选）
+            "huawei": {
+              "enabled": true
+            },
+            // FCM 推送（可选）
+            "fcm": {
+              "enabled": true
+            },
             // 小米推送（可选）
             "xiaomi": {
-              "appId": "MI-小米的APPID",
-              "appKey": "MI-小米的APPKEY"
+              "appId": "小米的APPID",
+              "appKey": "小米的APPKEY"
             },
             // OPPO 推送（可选）
             "oppo": {
@@ -124,8 +138,17 @@ pnpm add jpush-react-native@3.1.9 jcore-react-native@^2.3.0
 
 **注意**：
 - 厂商通道配置是可选的，只需配置你实际使用的厂商
-- 如果不配置某个厂商，对应的 manifestPlaceholders 不会被添加
+- 如果不配置某个厂商，对应的 SDK 依赖和配置不会被添加
 - 所有厂商通道的 AppKey/AppId 需要在对应厂商的推送平台申请
+- 厂商通道插件版本：**5.7.0**（与 JPush SDK 版本保持一致）
+
+**厂商通道额外配置**：
+- **华为推送**：需要在华为开发者联盟申请，并下载 `agconnect-services.json` 放到 `android/app` 目录
+- **FCM 推送**：需要在 Firebase 控制台申请，并下载 `google-services.json` 放到 `android/app` 目录
+- **魅族推送**：需要手动下载 `push-internal-5.0.3.aar` 并放到 `android/app/libs` 目录
+- **OPPO 推送**：需要手动下载 `com.heytap.msp_3.5.3.aar` 并放到 `android/app/libs` 目录
+- **荣耀推送**：需要手动下载 `HiPushSDK-8.0.12.307.aar` 并放到 `android/app/libs` 目录
+- **蔚来推送**：需要手动下载 `niopush-sdk-v1.0.aar` 并放到 `android/app/libs` 目录
 
 ## 3.`prebuild`
 ```bash

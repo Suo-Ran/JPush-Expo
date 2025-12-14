@@ -7,6 +7,20 @@
  */
 export interface VendorChannelConfig {
   /**
+   * 华为推送配置
+   */
+  huawei?: {
+    enabled: boolean;
+  };
+
+  /**
+   * FCM 推送配置
+   */
+  fcm?: {
+    enabled: boolean;
+  };
+
+  /**
    * 魅族推送配置
    */
   meizu?: {
@@ -69,6 +83,12 @@ export interface JPushPluginProps {
   channel: string;
 
   /**
+   * Android 包名（必填）
+   * 需要与极光推送控制台注册的包名一致
+   */
+  packageName: string;
+
+  /**
    * iOS 推送环境（可选）
    * @default false - 开发环境
    */
@@ -95,6 +115,10 @@ export function validateProps(props: JPushPluginProps | undefined): asserts prop
 
   if (!props.channel || typeof props.channel !== 'string') {
     throw new Error('[MX_JPush_Expo] channel 是必填项，且必须是字符串');
+  }
+
+  if (!props.packageName || typeof props.packageName !== 'string') {
+    throw new Error('[MX_JPush_Expo] packageName 是必填项，且必须是字符串');
   }
 
   if (props.apsForProduction !== undefined && typeof props.apsForProduction !== 'boolean') {
